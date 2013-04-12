@@ -1,0 +1,17 @@
+<%
+	template.addEvent('form', 'submit', actions.submitForm);
+%>
+
+<div id="homepage">
+
+	<h1>Chat.js</h1>
+	<p>A web application allowing locally encrypted chatting, messages are not stored on a server.</p>
+	<p>Enter an email, used to display a <a href="http://en.gravatar.com/">Gravatar</a>. And a passphrase (the people you are chatting to must use the same passphrase) the passphrase is used to encrypt your messages.</p>
+
+	<form>
+		<input id="email" placeholder="Gravatar email" />
+		<input id="passphrase" placeholder="Encryption passphrase" />
+		<button type="submit">Login</button>
+	</form>
+
+</div>

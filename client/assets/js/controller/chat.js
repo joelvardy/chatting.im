@@ -1,42 +1,22 @@
-Zepto(function($) {
+function showChat() {
 
-	chatModel = window.chat.model;
+	// Define actions
+	var actions = {
 
-	// Connect to server
-	chatModel.connect();
+		submitForm: function(event) {
 
-	// Login
-	var email = prompt('Enter your email: (ensure gravatar is available)');
-	var passphrase = prompt('Enter a passcode: (share this with whoever you are chatting to)');
-	setTimeout(function () {
-		chatModel.login(email, passphrase);
-	}, 50);
+			event.preventDefault();
 
-	// Listen for messages
-	chatModel.listen(function(data) {
-		console.log(data);
-		switch (data.type) {
-
-			case 'login':
-				$('#messages').append('<p><img src="http://www.gravatar.com/avatar/'+hex_md5(data.user)+'" />Logged in</p>');
-				break;
-
-			case 'message':
-				$('#messages').append('<p><img src="http://www.gravatar.com/avatar/'+hex_md5(data.user)+'" />'+data.text+'</p>');
-				break;
-
-			case 'logout':
-				$('#messages').append('<p><img src="http://www.gravatar.com/avatar/'+hex_md5(data.user)+'" />Logged out</p>');
-				break;
+			console.log('Submitted form');
 
 		}
-	});
 
-	// Send message
-	$('#compose').submit(function(event) {
-		event.preventDefault();
-		chatModel.send($('textarea', this).val());
-		$('textarea', this).val('')
-	});
+	}
 
-});
+	// Load chat view
+	var chatElement = chat.template.build('chat.ejs', {}, actions);
+
+	// Set the view
+	$('#chat').empty().append(chatElement);
+
+}

@@ -29,13 +29,12 @@ webServer.on('request', function(request){
 		switch (data.action) {
 
 			case 'login':
-				console.log((new Date())+' User '+connection.remoteAddress+' logged in as '+data.name);
-				clients[clientId].name = data.name;
+				clients[clientId].user = data.user;
 				break;
 
 			case 'send':
 				var message = {
-					user : clients[clientId].name,
+					user : clients[clientId].user,
 					sent : new Date(),
 					text : data.message
 				}

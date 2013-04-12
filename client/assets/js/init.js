@@ -1,13 +1,12 @@
 require.config({
 	paths: {
-		'zepto': 'http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min',
-		'cryptography': 'https://raw.github.com/bitwiseshiftleft/sjcl/master/sjcl'
+		'zepto': 'http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min'
 	}
 });
 
 window.chat = {};
 
-require(['zepto', 'cryptography'], function() {
+require(['zepto', 'vendor/cryptography', 'vendor/md5'], function() {
 
 	require(['model/chat'], function(chat) {
 

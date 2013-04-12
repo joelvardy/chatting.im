@@ -7,25 +7,18 @@ Zepto(function($) {
 
 	// Login
 	setTimeout(function () {
-		chatModel.send({
-			action : 'login',
-			name : 'Joel Vardy'
-		});
+		chatModel.login('Joel Vardy', 'testing');
 	}, 50);
 
 	// Listen for messages
-	chatModel.listen(function(event) {
-		message = JSON.parse(event.data);
+	chatModel.listen(function(message) {
 		$('#messages').append('<p><strong>'+message.user+'</strong><br />'+message.text+'</p>');
 	});
 
 	// Send message
 	$('#compose').submit(function(event) {
 		event.preventDefault();
-		chatModel.send({
-			action : 'send',
-			message : $('textarea', this).val()
-		});
+		chatModel.send($('textarea', this).val());
 	});
 
 });

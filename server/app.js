@@ -36,7 +36,7 @@ webServer.on('request', function(request){
 			case 'send':
 				var message = {
 					user : clients[clientId].name,
-					send : new Date(),
+					sent : new Date(),
 					text : data.message
 				}
 				for(var i in clients){

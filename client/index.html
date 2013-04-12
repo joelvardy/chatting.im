@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Chatting</title>
+		<link rel="stylesheet" href="./assets/css/design.css" />
 	</head>
 	<body>
 
@@ -10,47 +11,12 @@
 
 		</div>
 
-		<form name="new">
-			<textarea id="message"></textarea>
+		<form id="compose">
+			<textarea></textarea>
 			<button type="submit">Send</button>
 		</form>
 
-		<script>
-
-			window.onload = function() {
-
-				var ws = new WebSocket('ws://192.168.0.32:1234', 'echo-protocol');
-
-				// Not quite sure why we have to wait a little while to do this?
-				setTimeout(function () {
-					ws.send(JSON.stringify({
-						action : 'login',
-						name : 'Joel Vardy'
-					}));
-				}, 50);
-
-				ws.addEventListener('message', function(event) {
-
-					message = JSON.parse(event.data);
-
-					document.getElementById('messages').innerHTML += '<p><strong>'+message.user+'</strong><br />'+message.text+'</p>';
-
-				});
-
-				document.forms.new.onsubmit = function(event) {
-
-					event.preventDefault();
-
-					ws.send(JSON.stringify({
-						action : 'send',
-						message : document.getElementById('message').value
-					}));
-
-				}
-
-			}
-
-		</script>
+		<script data-main="assets/js/init" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.5/require.min.js"></script>
 
 	</body>
 </html>

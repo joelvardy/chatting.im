@@ -18,10 +18,14 @@ define(function() {
 		listen: function(callback) {
 			var _this = this;
 			this.connection.addEventListener('message', function(event) {
-				message = JSON.parse(event.data);
-				message.user = sjcl.decrypt(_this.encryptionKey, message.user);
-				message.text = sjcl.decrypt(_this.encryptionKey, message.text);
-				callback(message);
+				try {
+					message = JSON.parse(event.data);
+					message.user = sjcl.decrypt(_this.encryptionKey, message.user);
+					message.text = sjcl.decrypt(_this.encryptionKey, message.text);
+					callback(message);
+				} catch(exception) {
+					//
+				}
 			});
 		},
 

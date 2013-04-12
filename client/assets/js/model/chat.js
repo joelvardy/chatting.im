@@ -21,7 +21,9 @@ define(function() {
 				try {
 					message = JSON.parse(event.data);
 					message.user = sjcl.decrypt(_this.encryptionKey, message.user);
-					message.text = sjcl.decrypt(_this.encryptionKey, message.text);
+					if (typeof message.text != 'undefined') {
+						message.text = sjcl.decrypt(_this.encryptionKey, message.text);
+					}
 					callback(message);
 				} catch(exception) {
 					//
@@ -29,11 +31,11 @@ define(function() {
 			});
 		},
 
-		login: function(name, encryptionKey) {
+		login: function(user, encryptionKey) {
 			this.encryptionKey = encryptionKey;
 			this.push({
 				action : 'login',
-				name : sjcl.encrypt(this.encryptionKey, name)
+				user : sjcl.encrypt(this.encryptionKey, user)
 			});
 		},
 

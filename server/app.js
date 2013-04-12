@@ -9,6 +9,12 @@ var webServer = new webSocketServer({
     httpServer: server
 });
 
+var pushData = function(clients, data) {
+	for(var i in clients){
+		clients[i].connection.sendUTF(JSON.stringify(data));
+	}
+}
+
 var connectionCount = 0;
 var clients = {};
 webServer.on('request', function(request){
@@ -30,17 +36,20 @@ webServer.on('request', function(request){
 
 			case 'login':
 				clients[clientId].user = data.user;
+				pushData(clients, {
+					type : 'login',
+					user : clients[clientId].user,
+					time : new Date()
+				});
 				break;
 
 			case 'send':
-				var message = {
+				pushData(clients, {
+					type : 'message',
 					user : clients[clientId].user,
 					sent : new Date(),
 					text : data.message
-				}
-				for(var i in clients){
-					clients[i].connection.sendUTF(JSON.stringify(message));
-				}
+				});
 				break;
 
 		}
@@ -48,6 +57,11 @@ webServer.on('request', function(request){
 	});
 
 	connection.on('close', function(reasonCode, description) {
+		pushData(clients, {
+			type : 'logout',
+			user : clients[clientId].user,
+			time : new Date()
+		});
 		delete clients[clientId];
 		console.log((new Date())+' User '+connection.remoteAddress+' disconnected');
 	});

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8" />
+		<title>Chatting</title>
+	</head>
+	<body>
+
+		<div id="messages">
+
+		</div>
+
+		<form name="new">
+			<textarea id="message"></textarea>
+			<button type="submit">Send</button>
+		</form>
+
+		<script>
+
+			window.onload = function() {
+
+				var ws = new WebSocket('ws://192.168.0.32:1234', 'echo-protocol');
+
+				// Not quite sure why we have to wait a little while to do this?
+				setTimeout(function () {
+					ws.send(JSON.stringify({
+						action : 'login',
+						name : 'Joel Vardy'
+					}));
+				}, 50);
+
+				ws.addEventListener('message', function(event) {
+
+					message = JSON.parse(event.data);
+
+					document.getElementById('messages').innerHTML += '<p><strong>'+message.user+'</strong><br />'+message.text+'</p>';
+
+				});
+
+				document.forms.new.onsubmit = function(event) {
+
+					event.preventDefault();
+
+					ws.send(JSON.stringify({
+						action : 'send',
+						message : document.getElementById('message').value
+					}));
+
+				}
+
+			}
+
+		</script>
+
+	</body>
+</html>

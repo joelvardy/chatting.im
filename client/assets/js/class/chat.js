@@ -1,5 +1,6 @@
 function Chat() {
-	var connection;
+	var connection,
+		loggedin = false;
 }
 
 Chat.prototype = {
@@ -8,8 +9,14 @@ Chat.prototype = {
 		this.connection = new WebSocket('ws://192.168.0.34:1234', 'echo-protocol');
 	},
 
+	isLoggedin: function() {
+		return this.loggedin;
+	},
+
 	push: function(data) {
-		this.connection.send(JSON.stringify(data));
+		setTimeout(function () {
+			chat.chat.connection.send(JSON.stringify(data));
+		}, 50);
 	},
 
 	listen: function(callback) {
@@ -33,6 +40,7 @@ Chat.prototype = {
 			action : 'login',
 			user : chat.cryptography.encrypt(user)
 		});
+		this.loggedin = true;
 	},
 
 	send: function(message) {

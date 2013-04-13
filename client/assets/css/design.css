@@ -60,7 +60,30 @@ html {
 }
 	#conversation #messages {
 		margin-bottom: 50px;
+		padding: 6%;
 	}
+		#conversation #messages div {
+			margin-top: 15px;
+			overflow: hidden;
+		}
+			#conversation #messages div img {
+				border-radius: 30px;
+				float: left;
+				margin-right: 15px;
+				width: 60px;
+			}
+			#conversation #messages div.login img, #conversation #messages div.logout img {
+				border-radius: 25px;
+				margin-right: 25px;
+				opacity: 0.75;
+				width: 50px;
+			}
+			#conversation #messages div p {
+				background: rgba(0,0,0,0.25);
+				border-radius: 6px;
+				float: left;
+				padding: 12px 20px;
+			}
 	#conversation form {
 		background: green;
 		bottom: 0;

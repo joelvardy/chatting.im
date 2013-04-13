@@ -29,15 +29,15 @@ function showChat() {
 		switch (data.type) {
 
 			case 'login':
-				$('#conversation #messages').append('<p><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" />Logged in</p>');
+				$('#conversation #messages').append('<div class="login"><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" /><p>Logged in</p></div>');
 				break;
 
 			case 'message':
-				$('#conversation #messages').append('<p><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" />'+data.text+'</p>');
+				$('#conversation #messages').append('<div class="message"><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" /><p>'+data.text+'</p></div>');
 				break;
 
 			case 'logout':
-				$('#conversation #messages').append('<p><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" />Logged out</p>');
+				$('#conversation #messages').append('<div class="logout"><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" /><p>Logged out</p></div>');
 				break;
 
 		}

@@ -55,6 +55,28 @@ html {
 			width: 100%;
 		}
 
+#conversation {
+	
+}
+	#conversation #messages {
+		margin-bottom: 50px;
+	}
+	#conversation form {
+		background: green;
+		bottom: 0;
+		height: 50px;
+		left: 0;
+		position: fixed;
+		right: 0;
+	}
+		#conversation form input {
+			background: white;
+			border: none;
+			height: 100%;
+			padding: 10px 20px;
+			width: 100%;
+		}
+
 
 @media screen and (max-width: 600px) {
 

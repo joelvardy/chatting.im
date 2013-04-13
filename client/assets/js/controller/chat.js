@@ -7,8 +7,12 @@ function showChat() {
 
 			event.preventDefault();
 
-			chat.chat.send($('#chat form input').val());
-			$('#chat form input').val('');
+			var message = $('#conversation form input');
+
+			if (message.val() != '') {
+				chat.chat.send(message.val());
+				message.val('');
+			}
 
 		}
 
@@ -25,18 +29,19 @@ function showChat() {
 		switch (data.type) {
 
 			case 'login':
-				$('#chat #messages').append('<p><img src="http://www.gravatar.com/avatar/'+hex_md5(data.user)+'" />Logged in</p>');
+				$('#conversation #messages').append('<p><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" />Logged in</p>');
 				break;
 
 			case 'message':
-				$('#chat #messages').append('<p><img src="http://www.gravatar.com/avatar/'+hex_md5(data.user)+'" />'+data.text+'</p>');
+				$('#conversation #messages').append('<p><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" />'+data.text+'</p>');
 				break;
 
 			case 'logout':
-				$('#chat #messages').append('<p><img src="http://www.gravatar.com/avatar/'+hex_md5(data.user)+'" />Logged out</p>');
+				$('#conversation #messages').append('<p><img src="//www.gravatar.com/avatar/'+hex_md5(data.user)+'" />Logged out</p>');
 				break;
 
 		}
+		window.scroll(0, $('#conversation #messages').height());
 	});
 
 }

@@ -38,16 +38,17 @@ function showChat() {
 				if ($('#conversation #users li[data-key='+data.user.key+']').length == 0) {
 					$('#conversation #users').append('<li data-key="'+data.user.key+'"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" />'+data.user.name+'</li>');
 				}
-				$('#conversation #messages').append('<div class="login"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>Logged in</p></div>');
+				$('#conversation #messages').append('<div class="login"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>'+data.user.name+' logged in</p></div>');
 				break;
 
 			case 'message':
-				$('#conversation #messages').append('<div class="message"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>'+data.text+'</p></div>');
+				var messageDate = new Date(data.sent);
+				$('#conversation #messages').append('<div class="message"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p><strong>'+data.user.name+'</strong> <em>'+messageDate.getHours()+':'+messageDate.getMinutes()+'</em><br />'+data.text+'</p></div>');
 				break;
 
 			case 'logout':
 				$('#conversation #users li[data-key='+data.user.key+']').remove();
-				$('#conversation #messages').append('<div class="logout"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>Logged out</p></div>');
+				$('#conversation #messages').append('<div class="logout"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>'+data.user.name+' logged out</p></div>');
 				break;
 
 		}

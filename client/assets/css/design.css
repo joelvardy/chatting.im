@@ -102,6 +102,12 @@ html {
 				float: left;
 				padding: 12px 20px;
 			}
+				#conversation #messages div p em {
+					color: #f0f0f0;
+					display: inline-block;
+					font-size: 0.8em;
+					margin-left: 10px;
+				}
 	#conversation form {
 		background: green;
 		bottom: 0;

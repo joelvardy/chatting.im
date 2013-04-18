@@ -1,8 +1,8 @@
 var	http = require('http'),
 	webSocketServer = require('websocket').server;
 
-var server = http.createServer().listen(1234, function() {
-	console.log((new Date())+' Server is listening on port 1234');
+var server = http.createServer().listen(6659, function() {
+	console.log((new Date())+' Server is listening on port 6659');
 });
 
 var webServer = new webSocketServer({
@@ -35,7 +35,10 @@ webServer.on('request', function(request){
 		switch (data.action) {
 
 			case 'login':
-				clients[clientId].user = data.user;
+				clients[clientId].user = {
+					name : data.name,
+					email : data.email
+				};
 				pushData(clients, {
 					type : 'login',
 					user : clients[clientId].user,

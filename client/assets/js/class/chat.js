@@ -6,7 +6,7 @@ function Chat() {
 Chat.prototype = {
 
 	init: function() {
-		this.connection = new WebSocket('ws://192.168.0.34:1234', 'echo-protocol');
+		this.connection = new WebSocket('ws://chatting.im:6659', 'echo-protocol');
 	},
 
 	isLoggedin: function() {
@@ -24,7 +24,8 @@ Chat.prototype = {
 		this.connection.addEventListener('message', function(event) {
 			try {
 				message = JSON.parse(event.data);
-				message.user = chat.cryptography.decrypt(message.user);
+				message.user.name = chat.cryptography.decrypt(message.user.name);
+				message.user.email = chat.cryptography.decrypt(message.user.email);
 				if (typeof message.text != 'undefined') {
 					message.text = chat.cryptography.decrypt(message.text);
 				}
@@ -35,10 +36,11 @@ Chat.prototype = {
 		});
 	},
 
-	login: function(user) {
+	login: function(name, email) {
 		this.push({
 			action : 'login',
-			user : chat.cryptography.encrypt(user)
+			name : chat.cryptography.encrypt(name),
+			email : chat.cryptography.encrypt(email)
 		});
 		this.loggedin = true;
 	},

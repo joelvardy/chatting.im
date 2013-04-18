@@ -56,8 +56,9 @@ Route.prototype = {
 			// Set the user passphrase
 			chat.user.set('passphrase', this.getHash().match('^chat/(.*)$')[1]);
 			if ( ! chat.chat.isLoggedin()) {
+				var name = prompt('Enter your name:');
 				var email = prompt('Enter your email: (ensure gravatar is available)');
-				chat.chat.login(email);
+				chat.chat.login(name, email);
 			}
 			showChat();
 

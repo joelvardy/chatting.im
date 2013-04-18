@@ -28,7 +28,16 @@ function showChat() {
 	chat.chat.listen(function(data) {
 		switch (data.type) {
 
+			case 'users':
+				for(var i in data.users){
+					$('#conversation #users').append('<li data-key="'+data.users[i].key+'"><img alt="'+data.users[i].name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.users[i].email)+'" />'+data.users[i].name+'</li>');
+				}
+				break;
+
 			case 'login':
+				if ($('#conversation #users li[data-key='+data.user.key+']').length == 0) {
+					$('#conversation #users').append('<li data-key="'+data.user.key+'"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" />'+data.user.name+'</li>');
+				}
 				$('#conversation #messages').append('<div class="login"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>Logged in</p></div>');
 				break;
 
@@ -37,6 +46,7 @@ function showChat() {
 				break;
 
 			case 'logout':
+				$('#conversation #users li[data-key='+data.user.key+']').remove();
 				$('#conversation #messages').append('<div class="logout"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>Logged out</p></div>');
 				break;
 

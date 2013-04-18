@@ -15,6 +15,18 @@ var pushData = function(clients, data) {
 	}
 }
 
+var userList = function(clients) {
+	var userList = {};
+	for(var i in clients){
+		userList[i] = {
+			key : clients[i].user.key,
+			name : clients[i].user.name,
+			email : clients[i].user.email
+		};
+	}
+	return userList;
+}
+
 var connectionCount = 0;
 var clients = {};
 webServer.on('request', function(request){
@@ -36,9 +48,14 @@ webServer.on('request', function(request){
 
 			case 'login':
 				clients[clientId].user = {
+					key : Math.random().toString(36, 16).substr(3, 16),
 					name : data.name,
 					email : data.email
 				};
+				clients[clientId].connection.sendUTF(JSON.stringify({
+					type : 'users',
+					users : userList(clients)
+				}));
 				pushData(clients, {
 					type : 'login',
 					user : clients[clientId].user,

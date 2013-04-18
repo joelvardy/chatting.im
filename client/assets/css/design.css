@@ -58,6 +58,24 @@ html {
 #conversation {
 	
 }
+	#conversation #users {
+		background: rgba(0,0,0,0.25);
+		border-radius: 4px;
+		list-style: none;
+		padding: 0 15px 5px;
+		position: fixed;
+		right: 10px;
+		top: 10px;
+	}
+		#conversation #users li {
+			margin-top: 5px;
+		}
+			#conversation #users li img {
+				border-radius: 0.5em;
+				float: left;
+				height: 1em;
+				margin: 4px 8px 0 0;
+			}
 	#conversation #messages {
 		margin-bottom: 50px;
 		padding: 6%;

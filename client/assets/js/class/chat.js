@@ -24,8 +24,16 @@ Chat.prototype = {
 		this.connection.addEventListener('message', function(event) {
 			try {
 				message = JSON.parse(event.data);
-				message.user.name = chat.cryptography.decrypt(message.user.name);
-				message.user.email = chat.cryptography.decrypt(message.user.email);
+				if (typeof message.user != 'undefined') {
+					message.user.name = chat.cryptography.decrypt(message.user.name);
+					message.user.email = chat.cryptography.decrypt(message.user.email);
+				}
+				if (typeof message.users != 'undefined') {
+					for(var i in message.users){
+						message.users[i].name = chat.cryptography.decrypt(message.users[i].name);
+						message.users[i].email = chat.cryptography.decrypt(message.users[i].email);
+					}
+				}
 				if (typeof message.text != 'undefined') {
 					message.text = chat.cryptography.decrypt(message.text);
 				}

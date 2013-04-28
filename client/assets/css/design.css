@@ -30,7 +30,7 @@ html {
 	background: rgba(0,0,0,0.5);
 	border-radius: 6px;
 	box-shadow:inset 0 0 8px rgba(0,0,0,0.5);
-	margin: 10% auto 0;
+	margin: 10% auto;
 	padding: 6%;
 	width: 50%;
 }
@@ -80,33 +80,35 @@ html {
 		margin-bottom: 50px;
 		padding: 6%;
 	}
-		#conversation #messages div {
+		#conversation #messages > div {
 			margin-top: 15px;
 			overflow: hidden;
 		}
-			#conversation #messages div img {
-				border-radius: 30px;
+			#conversation #messages > div div.user {
 				float: left;
-				margin-right: 15px;
-				width: 60px;
+				width: 8%;
 			}
-			#conversation #messages div.login img, #conversation #messages div.logout img {
-				border-radius: 25px;
-				margin-right: 25px;
-				opacity: 0.75;
-				width: 50px;
-			}
-			#conversation #messages div p {
+				#conversation #messages > div div.user img {
+					border-radius: 50%;
+					display: block;
+					width: 100%;
+				}
+				#conversation #messages > div div.user h5 {
+					height: 2em;
+					overflow: hidden;
+					text-align: center;
+				}
+			#conversation #messages > div p {
 				background: rgba(0,0,0,0.25);
 				border-radius: 6px;
 				float: left;
+				margin-left: 2%;
 				padding: 12px 20px;
+				max-width: 80%;
 			}
-				#conversation #messages div p em {
-					color: #f0f0f0;
-					display: inline-block;
+				#conversation #messages > div p strong {
 					font-size: 0.8em;
-					margin-left: 10px;
+					opacity: 0.75;
 				}
 	#conversation form {
 		background: green;
@@ -129,6 +131,10 @@ html {
 
 	#homepage {
 		width: 80%;
+	}
+
+	#conversation #users {
+		display: none;
 	}
 
 }

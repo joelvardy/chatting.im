@@ -28,6 +28,9 @@ Template.prototype = {
 		if (typeof data != 'object') {
 			data = {};
 		}
+		if (typeof actions != 'object') {
+			actions = {};
+		}
 		data.template = this;
 		data.actions = actions;
 

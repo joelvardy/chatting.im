@@ -38,21 +38,20 @@ function showChat() {
 				if ($('#conversation #users li[data-key='+data.user.key+']').length == 0) {
 					$('#conversation #users').append('<li data-key="'+data.user.key+'"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" />'+data.user.name+'</li>');
 				}
-				$('#conversation #messages').append('<div class="login"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>'+data.user.name+' logged in</p></div>');
 				break;
 
 			case 'message':
 				var messageDate = new Date(data.sent);
-				$('#conversation #messages').append('<div class="message"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p><strong>'+data.user.name+'</strong> <em>'+messageDate.getHours()+':'+messageDate.getMinutes()+'</em><br />'+data.text+'</p></div>');
+				data.sent = (messageDate.getHours() < 10 ? '0' : '')+messageDate.getHours()+':'+(messageDate.getMinutes() < 10 ? '0' : '')+messageDate.getMinutes();
+				$('#conversation #messages').append(chat.template.build('chat-message.ejs', data));
 				break;
 
 			case 'logout':
 				$('#conversation #users li[data-key='+data.user.key+']').remove();
-				$('#conversation #messages').append('<div class="logout"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" /><p>'+data.user.name+' logged out</p></div>');
 				break;
 
 		}
-		window.scroll(0, $('#conversation #messages').height());
+		window.scroll(0, $('#conversation #messages').outerHeight());
 	});
 
 }

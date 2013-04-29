@@ -54,8 +54,12 @@ function showChat() {
 				var messageDate = new Date(data.sent);
 				data.sent = (messageDate.getHours() < 10 ? '0' : '')+messageDate.getHours()+':'+(messageDate.getMinutes() < 10 ? '0' : '')+messageDate.getMinutes();
 				$('#conversation #messages').append(chat.template.build('chat-message.ejs', data));
-				unreadMessages++;
-				if ( ! chat.page.isActive() && unreadMessages > 0) {
+				if ( ! chat.page.isActive()) {
+					unreadMessages++;
+					if (unreadMessages == 1) {
+						var notification = new Audio('/assets/audio/notification.wav');
+						notification.play();
+					}
 					document.title = '('+unreadMessages+') Chatting';
 				}
 				break;

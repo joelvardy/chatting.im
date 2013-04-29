@@ -24,6 +24,16 @@ function showChat() {
 	// Set the view
 	$('#chat').empty().append(chatElement);
 
+	// Set unread message count
+	var unreadMessages = 0;
+
+	chat.page.setVisibilityChangeCallback(function() {
+		if (chat.page.isActive()) {
+			unreadMessages = 0;
+			document.title = 'Chatting';
+		}
+	});
+
 	// Listen for messages
 	chat.chat.listen(function(data) {
 		switch (data.type) {
@@ -44,6 +54,10 @@ function showChat() {
 				var messageDate = new Date(data.sent);
 				data.sent = (messageDate.getHours() < 10 ? '0' : '')+messageDate.getHours()+':'+(messageDate.getMinutes() < 10 ? '0' : '')+messageDate.getMinutes();
 				$('#conversation #messages').append(chat.template.build('chat-message.ejs', data));
+				unreadMessages++;
+				if ( ! chat.page.isActive() && unreadMessages > 0) {
+					document.title = '('+unreadMessages+') Chatting';
+				}
 				break;
 
 			case 'logout':
@@ -51,7 +65,7 @@ function showChat() {
 				break;
 
 		}
-		window.scroll(0, $('#conversation #messages').outerHeight());
+		window.scroll(0, $('#conversation #messages').height());
 	});
 
 }

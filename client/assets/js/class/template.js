@@ -5,8 +5,8 @@ function Template() {
 
 Template.prototype = {
 
-	init: function() {
-		this.templatePath = '/assets/templates/';
+	init: function(templatePath) {
+		this.templatePath = templatePath;
 	},
 
 	addEvent: function(selector, event, handler) {

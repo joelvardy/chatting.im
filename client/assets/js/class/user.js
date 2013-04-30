@@ -8,12 +8,12 @@ User.prototype = {
 		this.user = {};
 	},
 
-	get: function(key) {
-		return this.user.key || false;
+	get: function(keyName) {
+		return this.user[keyName] || false;
 	},
 
-	set: function(key, value) {
-		this.user.key = value;
+	set: function(keyName, value) {
+		this.user[keyName] = value;
 	}
 
 }

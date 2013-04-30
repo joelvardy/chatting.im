@@ -18,7 +18,9 @@ function showHomepage() {
 	}
 
 	// Load homepage view
-	var homepageElement = chat.template.build('homepage.ejs', {}, actions);
+	var homepageElement = chat.template.build('homepage.ejs', {
+		'passphrase' : chat.user.get('passphrase')
+	}, actions);
 
 	// Set the view
 	$('#chat').empty().append(homepageElement);

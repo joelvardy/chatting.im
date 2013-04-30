@@ -27,6 +27,11 @@ function showChat() {
 	// Set unread message count
 	var unreadMessages = 0;
 
+	// Load notification sound
+	var notificationSound = new Audio('/assets/audio/notification.wav');
+	notificationSound.load();
+
+	// When page is viewed clear unread messages
 	chat.page.setVisibilityChangeCallback(function() {
 		if (chat.page.isActive()) {
 			unreadMessages = 0;
@@ -36,6 +41,7 @@ function showChat() {
 
 	// Listen for messages
 	chat.chat.listen(function(data) {
+
 		switch (data.type) {
 
 			case 'users':
@@ -51,17 +57,21 @@ function showChat() {
 				break;
 
 			case 'message':
+
+				// Format message time
 				var messageDate = new Date(data.sent);
 				data.sent = (messageDate.getHours() < 10 ? '0' : '')+messageDate.getHours()+':'+(messageDate.getMinutes() < 10 ? '0' : '')+messageDate.getMinutes();
+
+				// Add message to DOM
 				$('#conversation #messages').append(chat.template.build('chat-message.ejs', data));
+
+				// Notify the user
 				if ( ! chat.page.isActive()) {
 					unreadMessages++;
-					if (unreadMessages == 1) {
-						var notification = new Audio('/assets/audio/notification.wav');
-						notification.play();
-					}
+					if (unreadMessages == 1) notificationSound.play();
 					document.title = '('+unreadMessages+') Chatting';
 				}
+
 				break;
 
 			case 'logout':
@@ -69,7 +79,10 @@ function showChat() {
 				break;
 
 		}
+
+		// Scroll messages window to the bottom
 		window.scroll(0, $('#conversation #messages').height());
+
 	});
 
 }

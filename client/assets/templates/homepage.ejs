@@ -10,7 +10,7 @@
 	<%= (passphrase ? '' : '<p>Enter a passphrase (the people you are chatting to must use the same passphrase) the passphrase is used to encrypt your messages.</p>') %>
 
 	<form>
-		<input id="name" placeholder="Display name" />
+		<input id="name" placeholder="Display name" autofocus />
 		<input id="email" placeholder="Gravatar email" />
 		<input id="passphrase" placeholder="Encryption passphrase" value="<%= (passphrase ? passphrase : '') %>" <%= (passphrase ? 'type="hidden"' : '') %> />
 		<button type="submit">Login</button>

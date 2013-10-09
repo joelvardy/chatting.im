@@ -2,6 +2,10 @@
 
 My first node.js application, it quite simply allows people to chat within encrypted *rooms*.
 
+## Install
+
+Run `npm install` in the application route to install dependencies.
+
 ## Usage
 
 Sart the application with this command:

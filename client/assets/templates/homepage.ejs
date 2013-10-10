@@ -11,7 +11,7 @@
 
 	<form>
 		<input id="name" placeholder="Display name" autofocus />
-		<input id="email" placeholder="Gravatar email" />
+		<input id="email" type="email" placeholder="Gravatar email" />
 		<input id="passphrase" placeholder="Encryption passphrase" value="<%= (passphrase ? passphrase : '') %>" <%= (passphrase ? 'type="hidden"' : '') %> />
 		<button type="submit">Login</button>
 	</form>

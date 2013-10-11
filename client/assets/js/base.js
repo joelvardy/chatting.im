@@ -12,9 +12,10 @@ Zepto(function($) {
 
 	// Start the application
 	window.chat.user.init();
-	window.chat.chat.init();
-	window.chat.page.init();
-	window.chat.template.init('/assets/templates/');
-	window.chat.route.init();
+	window.chat.chat.init(function() {
+		window.chat.page.init();
+		window.chat.template.init('/assets/templates/');
+		window.chat.route.init();
+	});
 
 });

@@ -1,12 +1,37 @@
 function Chat() {
 	var connection,
-		loggedin = false;
+		loggedin = false,
+		listenCallback,
+		disconnectCallback;
 }
 
 Chat.prototype = {
 
-	init: function() {
+	init: function(callback) {
+
+		var _this = this;
+
 		this.connection = new WebSocket('ws://chatting.im:6659', 'echo-protocol');
+
+		this.connection.onopen = callback;
+
+		this.connection.onclose = function(event) {
+
+			_this.loggedin = false;
+			_this.disconnectCallback();
+
+			setTimeout(function() {
+				_this.init(function() {
+
+					// Resetup application
+					_this.login();
+					_this.listen();
+
+				});
+			}, 5000);
+
+		}
+
 	},
 
 	isLoggedin: function() {
@@ -14,43 +39,56 @@ Chat.prototype = {
 	},
 
 	push: function(data) {
-		setTimeout(function () {
-			chat.chat.connection.send(JSON.stringify(data));
-		}, 50);
+		chat.chat.connection.send(JSON.stringify(data));
 	},
 
 	listen: function(callback) {
+
 		var _this = this;
+
+		if (typeof callback == 'function') {
+			_this.listenCallback = callback;
+		}
+
 		this.connection.addEventListener('message', function(event) {
 			try {
+
 				message = JSON.parse(event.data);
+
 				if (typeof message.user != 'undefined') {
 					message.user.name = chat.cryptography.decrypt(message.user.name);
 					message.user.email = chat.cryptography.decrypt(message.user.email);
 				}
+
 				if (typeof message.users != 'undefined') {
 					for(var i in message.users){
 						message.users[i].name = chat.cryptography.decrypt(message.users[i].name);
 						message.users[i].email = chat.cryptography.decrypt(message.users[i].email);
 					}
 				}
+
 				if (typeof message.text != 'undefined') {
 					message.text = chat.cryptography.decrypt(message.text);
 				}
-				callback(message);
+
+				_this.listenCallback(message);
+
 			} catch(exception) {
 				//
 			}
 		});
+
 	},
 
 	login: function(name, email) {
-		this.push({
-			action : 'login',
-			name : chat.cryptography.encrypt(name),
-			email : chat.cryptography.encrypt(email)
-		});
-		this.loggedin = true;
+		if (chat.user.get('name') && chat.user.get('email')) {
+			this.push({
+				action : 'login',
+				name : chat.user.get('name'),
+				email : chat.user.get('email')
+			});
+			this.loggedin = true;
+		}
 	},
 
 	send: function(message) {
@@ -58,6 +96,10 @@ Chat.prototype = {
 			action : 'send',
 			message : chat.cryptography.encrypt(message)
 		});
+	},
+
+	setDisconnectCallback: function(callback) {
+		this.disconnectCallback = callback;
 	}
 
 }

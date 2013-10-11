@@ -85,4 +85,8 @@ function showChat() {
 
 	});
 
+	chat.chat.setDisconnectCallback(function() {
+		$('#conversation #users').html('');
+	});
+
 }

@@ -36,8 +36,6 @@ webServer.on('request', function(request){
 	clients[clientId] = {};
 	clients[clientId].connection = connection;
 
-	console.log((new Date())+' User '+connection.remoteAddress+' connected');
-
 	connection.on('message', function(data) {
 
 		// Decode data
@@ -47,7 +45,6 @@ webServer.on('request', function(request){
 		switch (data.action) {
 
 			case 'login':
-				console.log('User logged in');
 				clients[clientId].user = {
 					key : Math.random().toString(36, 16).substr(3, 16),
 					name : data.name,
@@ -65,7 +62,6 @@ webServer.on('request', function(request){
 				break;
 
 			case 'send':
-				console.log('User send message');
 				pushData(clients, {
 					type : 'message',
 					user : clients[clientId].user,
@@ -85,7 +81,6 @@ webServer.on('request', function(request){
 			time : new Date()
 		});
 		delete clients[clientId];
-		console.log((new Date())+' User '+connection.remoteAddress+' disconnected');
 	});
 
 });

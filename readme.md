@@ -11,10 +11,10 @@ Run `npm install` in the application route to install dependencies.
 Sart the application with this command:
 
 ```bash
-pm2 start ./app.js -i max --name chatting.im
+pm2 start ./app.js --name chatting.im
 ```
 
-The web socket server will run on port 2428 (which is CHAT when keyed on a keypad.)
+The web socket server will run on port 2428 (which is CHAT when keyed on a keypad.) **Ensure this port is open.**
 
 [Joel Vardy][joelvardy]
 

@@ -8,9 +8,13 @@ Chat.prototype = {
 
 		var _this = this;
 
-		this.connection = new WebSocket('ws://127.0.0.1:2428', 'echo-protocol');
+		this.connection = new WebSocket('ws://chatting.im:2428', 'echo-protocol');
 
 		this.loggedin = false;
+
+		this.connection.onerror = function(event) {
+			alert('A websocket connection error has occurred.')
+		}
 
 		this.connection.onopen = callback;
 

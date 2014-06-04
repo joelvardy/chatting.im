@@ -9,7 +9,7 @@ Page.prototype = {
 
 		this.active = true;
 
-		var hidden, visibilityChange; 
+		var hidden, visibilityChange;
 		if (typeof document.hidden !== 'undefined') {
 			hidden = 'hidden';
 			visibilityChange = 'visibilitychange';

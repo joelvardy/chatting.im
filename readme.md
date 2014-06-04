@@ -14,6 +14,8 @@ Sart the application with this command:
 pm2 start ./app.js
 ```
 
+The web socket server will run on port 2428 (which is CHAT when keyed on a keypad.)
+
 [Joel Vardy][joelvardy]
 
   [joelvardy]: https://joelvardy.com

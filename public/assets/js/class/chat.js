@@ -11,7 +11,7 @@ Chat.prototype = {
 
 		var _this = this;
 
-		this.connection = new WebSocket('ws://chatting.im:6659', 'echo-protocol');
+		this.connection = new WebSocket('ws://127.0.0.1:2428', 'echo-protocol');
 
 		this.connection.onopen = callback;
 

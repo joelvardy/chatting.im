@@ -24,6 +24,17 @@ html {
 	background: url('../img/background.jpg') no-repeat center center fixed;
 	background-size: cover;
 	color: white;
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	height: 100%;
+	overflow: auto;
+}
+
+#chat {
+	height: 100%;
 }
 
 #homepage {
@@ -69,6 +80,8 @@ html {
 
 #conversation {
 
+	height: 100%;
+
 	#users {
 
 		background: rgba(0,0,0,0.25);
@@ -100,7 +113,9 @@ html {
 
 	#messages {
 
+		height: calc(100% - 50px);
 		margin-bottom: 50px;
+		overflow: auto;
 		padding: 6%;
 
 		> div {

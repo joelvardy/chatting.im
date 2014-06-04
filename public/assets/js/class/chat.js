@@ -1,8 +1,5 @@
 function Chat() {
-	var connection,
-		loggedin = false,
-		listenCallback,
-		disconnectCallback;
+	//
 }
 
 Chat.prototype = {
@@ -12,6 +9,8 @@ Chat.prototype = {
 		var _this = this;
 
 		this.connection = new WebSocket('ws://127.0.0.1:2428', 'echo-protocol');
+
+		this.loggedin = false;
 
 		this.connection.onopen = callback;
 

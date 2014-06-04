@@ -1,5 +1,5 @@
 function User() {
-	var user;
+	//
 }
 
 User.prototype = {

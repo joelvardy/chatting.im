@@ -1,6 +1,5 @@
 function Template() {
-	var templatePath,
-		events;
+	//
 }
 
 Template.prototype = {

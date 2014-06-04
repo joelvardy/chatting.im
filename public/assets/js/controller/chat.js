@@ -24,6 +24,9 @@ function showChat() {
 	// Set the view
 	$('#chat').empty().append(chatElement);
 
+	// Focus on message box
+	$('#conversation form input').focus();
+
 	// Set unread message count
 	var unreadMessages = 0;
 
@@ -81,7 +84,7 @@ function showChat() {
 		}
 
 		// Scroll messages window to the bottom
-		window.scroll(0, $('#conversation #messages').height());
+		document.querySelector('#conversation #messages').scrollTop = 99999;
 
 	});
 

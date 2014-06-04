@@ -1,6 +1,5 @@
 function Page() {
-	var active,
-	visibilityChangeCallback;
+	//
 }
 
 Page.prototype = {

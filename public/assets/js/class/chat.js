@@ -13,8 +13,8 @@ Chat.prototype = {
 		this.loggedin = false;
 
 		this.connection.onerror = function(event) {
-			alert('A websocket connection error has occurred.')
-		}
+			alert('A websocket connection error has occurred.');
+		};
 
 		this.connection.onopen = callback;
 
@@ -33,7 +33,7 @@ Chat.prototype = {
 				});
 			}, 5000);
 
-		}
+		};
 
 	},
 
@@ -49,7 +49,7 @@ Chat.prototype = {
 
 		var _this = this;
 
-		if (typeof callback == 'function') {
+		if (typeof callback === 'function') {
 			_this.listenCallback = callback;
 		}
 
@@ -58,19 +58,19 @@ Chat.prototype = {
 
 				message = JSON.parse(event.data);
 
-				if (typeof message.user != 'undefined') {
+				if (typeof message.user !== 'undefined') {
 					message.user.name = chat.cryptography.decrypt(message.user.name);
 					message.user.email = chat.cryptography.decrypt(message.user.email);
 				}
 
-				if (typeof message.users != 'undefined') {
+				if (typeof message.users !== 'undefined') {
 					for(var i in message.users){
 						message.users[i].name = chat.cryptography.decrypt(message.users[i].name);
 						message.users[i].email = chat.cryptography.decrypt(message.users[i].email);
 					}
 				}
 
-				if (typeof message.text != 'undefined') {
+				if (typeof message.text !== 'undefined') {
 					message.text = chat.cryptography.decrypt(message.text);
 				}
 
@@ -105,4 +105,4 @@ Chat.prototype = {
 		this.disconnectCallback = callback;
 	}
 
-}
+};

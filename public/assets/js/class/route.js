@@ -21,7 +21,7 @@ Route.prototype = {
 	clearHash: function() {
 
 		window.location.hash = '';
-		if (typeof window.history.replaceState == 'function') {
+		if (typeof window.history.replaceState === 'function') {
 			window.history.replaceState({}, '', window.location.href.slice(0, -1));
 		}
 
@@ -48,8 +48,6 @@ Route.prototype = {
 
 	run: function() {
 
-		var _this = this;
-
 		// Chat
 		if (this.getHash().match('^chat/(.*)$')) {
 
@@ -72,4 +70,4 @@ Route.prototype = {
 
 	}
 
-}
+};

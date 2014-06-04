@@ -41,4 +41,4 @@ Page.prototype = {
 		this.visibilityChangeCallback = callback;
 	}
 
-}
+};

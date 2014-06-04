@@ -9,14 +9,14 @@ function showChat() {
 
 			var message = $('#conversation form input');
 
-			if (message.val() != '') {
+			if (message.val() !== '') {
 				chat.chat.send(message.val());
 				message.val('');
 			}
 
 		}
 
-	}
+	};
 
 	// Load chat view
 	var chatElement = chat.template.build('chat.ejs', {}, actions);
@@ -54,7 +54,7 @@ function showChat() {
 				break;
 
 			case 'login':
-				if ($('#conversation #users li[data-key='+data.user.key+']').length == 0) {
+				if ($('#conversation #users li[data-key='+data.user.key+']').length === 0) {
 					$('#conversation #users').append('<li data-key="'+data.user.key+'"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" />'+data.user.name+'</li>');
 				}
 				break;
@@ -71,7 +71,7 @@ function showChat() {
 				// Notify the user
 				if ( ! chat.page.isActive()) {
 					unreadMessages++;
-					if (unreadMessages == 1) notificationSound.play();
+					if (unreadMessages === 1) notificationSound.play();
 					document.title = '('+unreadMessages+') Chatting';
 				}
 

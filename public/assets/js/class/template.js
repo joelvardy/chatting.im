@@ -21,13 +21,11 @@ Template.prototype = {
 
 	build: function(template, data, actions) {
 
-		var _this = this;
-
 		this.events = [];
-		if (typeof data != 'object') {
+		if (typeof data !== 'object') {
 			data = {};
 		}
-		if (typeof actions != 'object') {
+		if (typeof actions !== 'object') {
 			actions = {};
 		}
 		data.template = this;
@@ -47,4 +45,4 @@ Template.prototype = {
 
 	}
 
-}
+};

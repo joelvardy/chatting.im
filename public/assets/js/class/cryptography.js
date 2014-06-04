@@ -12,4 +12,4 @@ Cryptography.prototype = {
 		return sjcl.decrypt(chat.user.get('passphrase'), string);
 	}
 
-}
+};

@@ -16,4 +16,4 @@ User.prototype = {
 		this.user[keyName] = value;
 	}
 
-}
+};

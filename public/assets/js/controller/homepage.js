@@ -17,7 +17,7 @@ function showHomepage() {
 
 		}
 
-	}
+	};
 
 	// Load homepage view
 	var homepageElement = chat.template.build('homepage.ejs', {

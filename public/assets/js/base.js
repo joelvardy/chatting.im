@@ -28,6 +28,8 @@ Zepto(function($) {
 		window.chat.page.init();
 		window.chat.template.init('/assets/templates/');
 		window.chat.route.init();
+	}, function() {
+		$('#conversation #users').html('');
 	});
 
 });

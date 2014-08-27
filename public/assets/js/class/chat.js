@@ -4,45 +4,85 @@ function Chat() {
 
 Chat.prototype = {
 
-	init: function(callback) {
+	init: function(connectCallback, disconnectCallback) {
 
 		var _this = this;
 
-		this.connection = new WebSocket('ws://chatting.im:2428', 'echo-protocol');
-
 		this.loggedin = false;
+		this.connectionStatus = false;
 
-		this.connection.onerror = function(event) {
-			alert('A websocket connection error has occurred.');
-		};
-
-		this.connection.onopen = callback;
-
-		this.connection.onclose = function(event) {
-
+		this.setConnectCallback(connectCallback);
+		this.setDisconnectCallback(function(event) {
 			_this.loggedin = false;
-			_this.disconnectCallback();
+			disconnectCallback(event);
+		});
 
-			setTimeout(function() {
-				_this.init(function() {
+		setInterval(function() {
+			if ( ! _this.connectionStatus) {
+				_this.connect();
+			}
+		}, 1500);
 
-					// Resetup application
-					_this.login();
-					_this.listen();
+	},
 
-				});
-			}, 5000);
+	setConnectCallback: function(callback) {
+		this.connectCallback = callback;
+	},
 
-		};
+	setMessageCallback: function(callback) {
+		this.messageCallback = callback;
+	},
 
+	setDisconnectCallback: function(callback) {
+		this.disconnectCallback = callback;
+	},
+
+	connect: function() {
+
+		var _this = this;
+
+		if ( ! 'WebSocket' in window) {
+			return alert('Websockets are not supported :(');
+		}
+
+		this.connection = new WebSocket('wss://chatting.im:2428');
+
+		this.connection.addEventListener('open', function(event) {
+			_this.connectionStatus = true;
+			_this.connectCallback(event);
+		});
+
+		this.connection.addEventListener('message', this.messageCallback);
+
+		this.connection.addEventListener('close', function(event) {
+			_this.connectionStatus = false;
+			_this.disconnectCallback(event);
+		});
+
+		this.connection.addEventListener('error', function(event) {
+			// Error
+		});
+
+	},
+
+	push: function(data) {
+		if ( ! this.connectionStatus) return alert('Not connected');
+		this.connection.send(JSON.stringify(data));
 	},
 
 	isLoggedin: function() {
 		return this.loggedin;
 	},
 
-	push: function(data) {
-		chat.chat.connection.send(JSON.stringify(data));
+	login: function() {
+		if (chat.user.get('name') && chat.user.get('email')) {
+			this.push({
+				action : 'login',
+				name : chat.user.get('name'),
+				email : chat.user.get('email')
+			});
+			this.loggedin = true;
+		}
 	},
 
 	listen: function(callback) {
@@ -83,26 +123,11 @@ Chat.prototype = {
 
 	},
 
-	login: function() {
-		if (chat.user.get('name') && chat.user.get('email')) {
-			this.push({
-				action : 'login',
-				name : chat.user.get('name'),
-				email : chat.user.get('email')
-			});
-			this.loggedin = true;
-		}
-	},
-
 	send: function(message) {
 		this.push({
 			action : 'send',
 			message : chat.cryptography.encrypt(message)
 		});
-	},
-
-	setDisconnectCallback: function(callback) {
-		this.disconnectCallback = callback;
 	}
 
 };

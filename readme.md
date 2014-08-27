@@ -6,6 +6,14 @@ This was my first node.js application, however it has since been updated, it qui
 
 Run `npm install` in the application route to install dependencies.
 
+## Development
+
+Ensure gulp is running with this command:
+
+```
+clear && gulp watch
+```
+
 ## Usage
 
 Sart the application with this command:

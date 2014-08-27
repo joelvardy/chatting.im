@@ -1,15 +1,3 @@
-// @codekit-prepend "vendor/cryptography.js";
-// @codekit-prepend "vendor/md5.js";
-// @codekit-prepend "vendor/ejs.js";
-// @codekit-prepend "class/user.js";
-// @codekit-prepend "class/cryptography.js";
-// @codekit-prepend "class/chat.js";
-// @codekit-prepend "class/page.js";
-// @codekit-prepend "class/template.js";
-// @codekit-prepend "class/route.js";
-// @codekit-prepend "controller/homepage.js";
-// @codekit-prepend "controller/chat.js";
-
 Zepto(function($) {
 
 	// Load classes

@@ -16,5 +16,8 @@ Temporary Items
 npm-debug.log
 node_modules/
 
+# SASS
+.sass-cache/
+
 # Certs
 certs/

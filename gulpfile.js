@@ -2,9 +2,8 @@
 var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	notify = require('gulp-notify'),
-	clean = require('gulp-clean'),
+	rimraf = require('gulp-rimraf'),
 	sass = require('gulp-ruby-sass'),
-	prefix = require('gulp-autoprefixer'),
 	uglify = require('gulp-uglifyjs');
 
 // SASS
@@ -17,7 +16,6 @@ gulp.task('styles', function () {
 	.on('error', notify.onError(function (error) {
 		return error.message;
 	}))
-	// .pipe(prefix('last 1 version', '> 1%', 'ie 8', 'ie 7')) // This appears to break source maps
 	.pipe(gulp.dest('public/assets/css'))
 	.pipe(notify({
 		title: 'Styles',
@@ -45,7 +43,7 @@ gulp.task('clean', function() {
 	return gulp.src(['public/assets/css', 'public/assets/js'], {
 		read: false
 	})
-	.pipe(clean());
+	.pipe(rimraf());
 });
 
 // Default task

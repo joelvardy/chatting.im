@@ -56,7 +56,7 @@ Chat.prototype = {
 		this.connection.addEventListener('message', function(event) {
 			try {
 
-				message = JSON.parse(event.data);
+				var message = JSON.parse(event.data);
 
 				if (typeof message.user !== 'undefined') {
 					message.user.name = chat.cryptography.decrypt(message.user.name);
@@ -83,7 +83,7 @@ Chat.prototype = {
 
 	},
 
-	login: function(name, email) {
+	login: function() {
 		if (chat.user.get('name') && chat.user.get('email')) {
 			this.push({
 				action : 'login',

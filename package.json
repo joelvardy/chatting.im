@@ -1,9 +1,9 @@
 {
 	"name": "chatting",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"private": "true",
 	"dependencies": {
-		"websocket": "1.0.8"
+		"ws": "0.4.32"
 	},
 	"main": "app.js"
 }

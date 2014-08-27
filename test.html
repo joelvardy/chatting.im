@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Web Sockets</title>
+	</head>
+	<body>
+
+		<p class="status">Connection status: <code></code></p>
+
+		<form>
+			<textarea placeholder="Data"></textarea>
+			<button type="submit">Send</button>
+		</form>
+
+		<script>
+
+			var connectionStatus = false,
+				connection;
+
+			setInterval(function() {
+				document.querySelector('p.status code').innerHTML = (connectionStatus ? 'connected' : 'disconnected');
+				if ( ! connectionStatus) {
+					connect();
+				}
+			}, 1500);
+
+			var connect = function() {
+
+				if ( ! 'WebSocket' in window) {
+					return alert('Websockets are not supported :(');
+				}
+
+				connection = new WebSocket('wss://chatting.im:2428');
+
+				connection.addEventListener('open', function(event) {
+					console.log('Event: Connection opened');
+					connectionStatus = true;
+				});
+
+				connection.addEventListener('message', function(event) {
+					console.log('Event: Message, '+event.data);
+				});
+
+				connection.addEventListener('close', function(event) {
+					if (connectionStatus) {
+						console.log('Event: Connection closed');
+					}
+					connectionStatus = false;
+				});
+
+				connection.addEventListener('error', function(event) {
+					// Error
+				});
+
+			};
+
+			var send = function(data) {
+
+				if ( ! connectionStatus) return alert('Not connected');
+
+				console.log('Event: Send data to server');
+				connection.send(data);
+
+			};
+
+			document.querySelector('form').addEventListener('submit', function(event) {
+				event.preventDefault();
+				send(event.target.querySelector('textarea').value);
+			});
+
+		</script>
+
+	</body>
+</html>

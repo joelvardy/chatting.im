@@ -8,3 +8,5 @@ node_modules
 
 .codekit-cache
 .sass-cache
+
+certs/

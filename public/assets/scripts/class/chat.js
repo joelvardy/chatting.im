@@ -128,7 +128,7 @@ Chat.prototype = {
 
 	send: function(message) {
 		this.push({
-			action : 'send',
+			action : 'message',
 			message : chat.cryptography.encrypt(message)
 		});
 	}

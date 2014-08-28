@@ -48,14 +48,9 @@ function showChat() {
 		switch (data.type) {
 
 			case 'users':
+				$('#conversation #users').empty();
 				for(var i in data.users){
-					$('#conversation #users').append('<li data-key="'+data.users[i].key+'"><img alt="'+data.users[i].name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.users[i].email)+'" />'+data.users[i].name+'</li>');
-				}
-				break;
-
-			case 'login':
-				if ($('#conversation #users li[data-key='+data.user.key+']').length === 0) {
-					$('#conversation #users').append('<li data-key="'+data.user.key+'"><img alt="'+data.user.name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.user.email)+'" />'+data.user.name+'</li>');
+					$('#conversation #users').append('<li data-reference="'+data.users[i].reference+'"><img alt="'+data.users[i].name+'" src="//www.gravatar.com/avatar/'+hex_md5(data.users[i].email)+'" />'+data.users[i].name+'</li>');
 				}
 				break;
 
@@ -75,10 +70,6 @@ function showChat() {
 					document.title = '('+unreadMessages+') Chatting';
 				}
 
-				break;
-
-			case 'logout':
-				$('#conversation #users li[data-key='+data.user.key+']').remove();
 				break;
 
 		}

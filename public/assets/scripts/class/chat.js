@@ -18,7 +18,10 @@ Chat.prototype = {
 		});
 
 		setInterval(function() {
-			if ( ! _this.connectionStatus) {
+			if (_this.connectionStatus) {
+				chat.loading.hide();
+			} else {
+				chat.loading.show();
 				_this.connect();
 			}
 		}, 1500);

@@ -1,16 +1,18 @@
 {
-	"name": "chatting",
-	"version": "0.0.2",
-	"private": "true",
-	"dependencies": {
-		"node-uuid": "1.4.1",
-		"ws": "0.4.32",
-		"gulp": "3.8.7",
-		"gulp-concat": "2.3.4",
-		"gulp-notify": "1.5.0",
-		"gulp-rimraf": "0.1.0",
-		"gulp-ruby-sass": "0.7.1",
-		"gulp-uglifyjs": "0.4.2"
-	},
-	"main": "app.js"
+    "name": "chatting",
+    "private": true,
+    "dependencies": {
+		"node-uuid": "*",
+		"ws": "*",
+        "del": "*",
+        "gulp": "*",
+        "gulp-ruby-sass": "*",
+        "gulp-autoprefixer": "*",
+        "gulp-minify-css": "*",
+        "gulp-concat": "*",
+        "gulp-jshint": "*",
+        "jshint-stylish": "*",
+        "gulp-uglify": "*"
+    },
+    "main": "app.js"
 }

@@ -1,58 +1,56 @@
 // Load plugins
-var gulp = require('gulp'),
-	concat = require('gulp-concat'),
-	notify = require('gulp-notify'),
-	rimraf = require('gulp-rimraf'),
+var del = require('del'),
+	gulp = require('gulp'),
 	sass = require('gulp-ruby-sass'),
-	uglify = require('gulp-uglifyjs');
+	autoprefixer = require('gulp-autoprefixer'),
+	minifyCSS = require('gulp-minify-css'),
+	concat = require('gulp-concat'),
+	jshint = require('gulp-jshint'),
+	jshintStylish = require('jshint-stylish'),
+	uglify = require('gulp-uglify');
 
-// SASS
+
+// Styles
 gulp.task('styles', function () {
-	return gulp.src('public/assets/sass/app.scss')
-	.pipe(sass({
-		sourcemap: true,
-		style: 'compressed'
-	}))
-	.on('error', notify.onError(function (error) {
-		return error.message;
-	}))
-	.pipe(gulp.dest('public/assets/css'))
-	.pipe(notify({
-		title: 'Styles',
-		message: 'Task complete'
-	}));
+
+	return sass('./public/assets/sass/app.scss')
+	.pipe(autoprefixer())
+	.pipe(minifyCSS())
+	.on('error', function (error) {
+		console.error('Error!', error);
+	})
+	.pipe(gulp.dest('./public/assets/minified'));
+
 });
+
 
 // JavaScript
 gulp.task('scripts', function () {
-	return gulp.src('public/assets/scripts/**/*.js')
+
+	return gulp.src('public/assets/js/**/*.js')
 	.pipe(concat('app.js'))
-	.pipe(gulp.dest('public/assets/js'))
-	.pipe(uglify({
-		outSourceMap: true
-	}))
-	.pipe(gulp.dest('public/assets/js'))
-	.pipe(notify({
-		title: 'Scripts',
-		message: 'Task complete'
-	}));
+	.pipe(uglify())
+	.on('error', function (error) {
+		console.log(error);
+	})
+	.pipe(gulp.dest('./public/assets/minified'));
+
 });
+
 
 // Clean
-gulp.task('clean', function() {
-	return gulp.src(['public/assets/css', 'public/assets/js'], {
-		read: false
-	})
-	.pipe(rimraf());
+gulp.task('clean', function () {
+	del(['./public/assets/minified/*']);
 });
 
+
 // Default task
-gulp.task('default', ['clean'], function() {
+gulp.task('default', ['clean'], function () {
 	gulp.start('styles', 'scripts');
 });
 
 // Watch
-gulp.task('watch', function() {
-	gulp.watch('public/assets/sass/**/*.scss', ['styles']);
-	gulp.watch('public/assets/scripts/**/*.js', ['scripts']);
+gulp.task('watch', function () {
+	gulp.watch('./public/assets/sass/**/*.scss', ['styles']);
+	gulp.watch('./public/assets/js/**/*.js', ['scripts']);
 });

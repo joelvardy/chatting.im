@@ -42,7 +42,7 @@
 		pushData(clients, {
 			type : 'users',
 			users : userList(clients),
-			time : new Date()
+			time : new Date().toUTCString()
 		});
 	}
 
@@ -82,7 +82,7 @@
 					pushData(clients, {
 						type : 'message',
 						user : clients[clientId].user,
-						sent : new Date(),
+						sent : new Date().toUTCString(),
 						text : data.message
 					});
 					break;

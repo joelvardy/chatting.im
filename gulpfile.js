@@ -31,7 +31,7 @@ gulp.task('scripts', function () {
 	.pipe(concat('app.js'))
 	.pipe(uglify())
 	.on('error', function (error) {
-		console.log(error);
+		console.error('Error!', error);
 	})
 	.pipe(gulp.dest('./public/assets/minified'));
 

@@ -30,6 +30,13 @@ pageChat.prototype = {
 				return page.redirect('/'+path.params.roomKey+'/login');
 			}
 
+			// Keep messae time up to date
+			setInterval(function () {
+				$('span.date').each(function (i, element) {
+					$(this).html(moment($(this).attr('title')).fromNow());
+				});
+			}, 5000);
+
 		});
 
 		page('/:roomKey/login', function (path) {
@@ -90,13 +97,6 @@ pageChat.prototype = {
 						name: userName
 					}
 				}));
-
-				// Keep messae time up to date
-				setInterval(function () {
-					$('span.date').each(function (i, element) {
-						$(this).html(moment($(this).attr('title')).fromNow());
-					});
-				}, 5000);
 
 				// Scroll messages window to the bottom
 				$('#chat[template=chat] div.messages').scrollTop(99999);

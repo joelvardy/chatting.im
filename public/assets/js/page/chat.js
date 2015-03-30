@@ -81,8 +81,8 @@ pageChat.prototype = {
 
 				var messageElement = $('#chat[template=chat] div.messages').append(Mustache.render($(template).filter('#template').html(), {
 					sent: {
-						raw: new Date(data.sent).toISOString(),
-						pretty: prettyDate(new Date(data.sent).toISOString())
+						raw: data.sent,
+						pretty: moment(data.sent).fromNow())
 					},
 					message: message,
 					user: {
@@ -96,7 +96,7 @@ pageChat.prototype = {
 
 				// Keep messae time up to date
 				setInterval(function () {
-					$('span.date', data.sent).prettyDate();
+					$('span.date', data.sent).html(moment($('span.date', data.sent).attr('title')).fromNow());
 				}, 5000);
 
 				if ( ! chatting.page.isVisible) {

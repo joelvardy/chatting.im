@@ -21,14 +21,11 @@ $(function () {
 	chatting.loading.init();
 	chatting.user.init();
 	chatting.chat.init(function (connectEvent) {
-		console.log('Connected', connectEvent);
 		chatting.chat.login();
 		chatting.loading.hide();
 	}, function (disconnectEvent) {
-		console.log('Disconnected', disconnectEvent);
 		chatting.loading.show();
 	}, function (messageEvent) {
-		console.log('Message', messageEvent);
 		var data = JSON.parse(messageEvent.data);
 		switch (data.type) {
 

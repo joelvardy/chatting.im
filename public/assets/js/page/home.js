@@ -7,8 +7,6 @@ pageHome.prototype = {
 	init: function () {
 		page('/', function () {
 
-			console.log('Login & create room');
-
 			chatting.page.load('login', {
 				userloggedIn: chatting.chat.loggedIn
 			}, [{

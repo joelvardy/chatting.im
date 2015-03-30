@@ -8,7 +8,6 @@ pageChat.prototype = {
 
 		page('/:roomKey', function (path) {
 
-			console.log('Enter room with key: '+path.params.roomKey);
 			chatting.user.set('roomKey', path.params.roomKey);
 
 			chatting.page.load('chat', {
@@ -34,8 +33,6 @@ pageChat.prototype = {
 		});
 
 		page('/:roomKey/login', function (path) {
-
-			console.log('Login to room with key: '+path.params.roomKey);
 
 			chatting.page.load('login', {
 				//

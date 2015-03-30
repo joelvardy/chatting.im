@@ -1,32 +1,28 @@
-function Loading() {
+function classLoading () {
 	//
 }
 
-Loading.prototype = {
+classLoading.prototype = {
 
-	init: function() {
-		//
+	init: function () {
+		this.transition = 250;
+		this.show();
 	},
 
-	element: function() {
-		return document.querySelector('div.loading');
-	},
-
-	show: function(callback) {
-		this.element().style.display = 'block';
-		this.element().classList.remove('inactive');
-		setTimeout(function() {
+	show: function (callback) {
+		$('div.loading').show();
+		$('div.loading').addClass('active');
+		setTimeout(function () {
 			if (typeof callback === 'function') callback();
-		}, 250);
+		}, this.transition);
 	},
 
-	hide: function(callback) {
-		var _this = this;
-		this.element().classList.add('inactive');
-		setTimeout(function() {
-			_this.element().style.display = 'none';
+	hide: function (callback) {
+		$('div.loading').removeClass('active');
+		setTimeout(function () {
+			$('div.loading').hide();
 			if (typeof callback === 'function') callback();
-		}, 250);
+		}, this.transition);
 	}
 
 };

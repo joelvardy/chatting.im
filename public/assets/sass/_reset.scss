@@ -1,0 +1,23 @@
+* {
+	box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+textarea, input, button {
+	outline: none;
+}
+
+form {
+
+	* {
+		border: none;
+		display: block;
+		width: 100%;
+	}
+
+	button {
+		cursor: pointer;
+	}
+
+}

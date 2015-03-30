@@ -1,0 +1,16 @@
+html, input, textarea, button {
+	color: $colour-text-default;
+	font: 110%/1.5em 'proxima-nova', serif;
+}
+
+html {
+	font-weight: 100;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 400;
+}
+
+form, strong {
+	font-weight: 400;
+}

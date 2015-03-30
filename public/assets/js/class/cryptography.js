@@ -1,15 +1,15 @@
-function Cryptography() {
+function classCryptography () {
 	//
 }
 
-Cryptography.prototype = {
+classCryptography.prototype = {
 
-	encrypt: function(string) {
-		return sjcl.encrypt(chat.user.get('passphrase'), string);
+	encrypt: function (string) {
+		return sjcl.encrypt(chatting.user.get('roomKey'), string);
 	},
 
-	decrypt: function(string) {
-		return sjcl.decrypt(chat.user.get('passphrase'), string);
+	decrypt: function (string) {
+		return sjcl.decrypt(chatting.user.get('roomKey'), string);
 	}
 
 };

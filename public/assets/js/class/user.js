@@ -1,18 +1,18 @@
-function User() {
+function classUser () {
 	//
 }
 
-User.prototype = {
+classUser.prototype = {
 
-	init: function() {
+	init: function () {
 		this.user = {};
 	},
 
-	get: function(keyName) {
+	get: function (keyName) {
 		return this.user[keyName] || false;
 	},
 
-	set: function(keyName, value) {
+	set: function (keyName, value) {
 		this.user[keyName] = value;
 	}
 

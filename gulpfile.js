@@ -27,7 +27,7 @@ gulp.task('styles', function () {
 // JavaScript
 gulp.task('scripts', function () {
 
-	return gulp.src('public/assets/js/**/*.js')
+	return gulp.src(['public/assets/js/*/*.js', 'public/assets/js/app.js'])
 	.pipe(concat('app.js'))
 	.pipe(uglify())
 	.on('error', function (error) {

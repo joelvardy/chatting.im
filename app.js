@@ -1,3 +1,5 @@
+// process.env.TZ = 'Etc/GMT';
+
 (function () {
 
 	"use strict";
@@ -24,8 +26,7 @@
 			if (typeof clients[i].user === 'undefined') continue;
 			userList[i] = {
 				reference : clients[i].user.reference,
-				name : clients[i].user.name,
-				email : clients[i].user.email
+				name : clients[i].user.name
 			};
 		}
 		return userList;
@@ -72,8 +73,7 @@
 				case 'login':
 					clients[clientId].user = {
 						reference : uuid.v4(),
-						name : data.name,
-						email : data.email
+						name : data.name
 					};
 					pushUsers(clients);
 					break;

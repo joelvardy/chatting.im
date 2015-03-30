@@ -93,7 +93,9 @@ pageChat.prototype = {
 
 				// Keep messae time up to date
 				setInterval(function () {
-					$('span.date', messageElement).html(moment($('span.date', data.sent).attr('title')).fromNow());
+					$('span.date').each(function (i, element) {
+						$(this).html(moment($(this).attr('title')).fromNow());
+					});
 				}, 5000);
 
 				// Scroll messages window to the bottom

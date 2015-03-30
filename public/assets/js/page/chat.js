@@ -82,7 +82,7 @@ pageChat.prototype = {
 				var messageElement = $('#chat[template=chat] div.messages').append(Mustache.render($(template).filter('#template').html(), {
 					sent: {
 						raw: data.sent,
-						pretty: moment(data.sent).fromNow())
+						pretty: moment(data.sent).fromNow()
 					},
 					message: message,
 					user: {

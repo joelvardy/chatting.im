@@ -91,13 +91,13 @@ pageChat.prototype = {
 					}
 				}));
 
-				// Scroll messages window to the bottom
-				$('#chat[template=chat] div.messages').scrollTop(99999);
-
 				// Keep messae time up to date
 				setInterval(function () {
-					$('span.date', data.sent).html(moment($('span.date', data.sent).attr('title')).fromNow());
+					$('span.date', messageElement).html(moment($('span.date', data.sent).attr('title')).fromNow());
 				}, 5000);
+
+				// Scroll messages window to the bottom
+				$('#chat[template=chat] div.messages').scrollTop(99999);
 
 				if ( ! chatting.page.isVisible) {
 					chatting.page.setTitle('NEW MESSAGES 📨');

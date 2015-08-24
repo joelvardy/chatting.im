@@ -1,19 +1,31 @@
 # [Chatting][chatting]
 
-This was my first node.js application, however it has since been updated, it quite simply allows people to chat within encrypted *rooms*.
+This was my first node.js application, however it has since been updated, it quite simply allows people to chat, locally encrypting messages in the browser.
 
 This is not meant for public chatting, but rather groups of people who trust each other and would like to chat securely.
 
 ## Install
 
-Run `npm install` in the application route to install dependencies.
+Run `npm install` in the application to install dependencies.
 
 ## Development
 
-Ensure gulp is running with this command:
+Compile SCSS with this gulp command:
 
 ```
-clear && gulp watch
+gulp scss
+```
+
+Transpile JavaScript using this command:
+
+```
+node ./build.js
+```
+
+For example after making changes run:
+
+```
+clear && node build.js && gulp scss && node app.js
 ```
 
 ## Usage

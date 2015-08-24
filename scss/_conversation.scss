@@ -1,0 +1,70 @@
+div.conversation {
+
+    ul.users {
+
+        background: rgba(black, 0.25);
+        border-radius: 4px;
+        list-style: none;
+        padding: 0 15px 5px;
+        position: fixed;
+        right: 10px;
+        top: 10px;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+
+        li {
+            margin-top: 5px;
+        }
+
+    }
+
+    ul.messages {
+
+        height: calc(100% - 50px);
+        list-style: none;
+        margin-bottom: 50px;
+        overflow: auto;
+        padding: 6%;
+
+        li {
+
+            background: rgba(black, 0.25);
+            border-radius: 6px;
+            margin-top: 15px;
+            padding: 12px 20px;
+            max-width: 80%;
+
+            &.me {
+                background: rgba(white, 0.1);
+                margin-left: 20%;
+            }
+
+            h5 {
+                font-size: 1.1em;
+            }
+
+        }
+
+    }
+
+    form {
+
+        bottom: 0;
+        height: 50px;
+        left: 0;
+        position: fixed;
+        right: 0;
+
+        input {
+            background: white;
+            border: none;
+            height: 100%;
+            padding: 10px 20px;
+            width: 100%;
+        }
+
+    }
+
+}

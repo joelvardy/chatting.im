@@ -1,19 +1,68 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Chatting | Secure Messaging!</title>
-		<script src="//use.typekit.net/pfc4qwo.js"></script>
-		<script>try{Typekit.load();}catch(e){}</script>
-		<link rel="stylesheet" href="/assets/minified/app.css" />
-	</head>
-	<body>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Chatting</title>
+        <link rel="stylesheet" href="/app.css">
+    </head>
+    <body>
 
-		<div id="chat"></div>
-		<div class="loading"></div>
+        <div class="template"></div>
 
-		<script src="/assets/minified/app.js"></script>
+        <script id="main" type="text/ractive">
 
-	</body>
+            <div class="container"></div>
+
+            {{^connected}}
+                <div class="loading"></div>
+            {{/connected}}
+
+        </script>
+
+        <script id="login-main" type="text/ractive">
+
+            <div class="login">
+
+                <h1>Chatting</h1>
+                <p>Enter your name to start sending locally encrypted messages.</p>
+
+                <form on-submit="submit">
+                    <input value="{{ user.name }}" placeholder="Display name" autofocus>
+                </form>
+
+            </div>
+
+        </script>
+
+        <script id="messages-main" type="text/ractive">
+
+            <div class="conversation">
+
+                <ul class="users">{{#each conversation.users:i}}{{>user}}{{/each}}</ul>
+                <ul class="messages">{{#each conversation.messages:i}}{{>message}}{{/each}}</ul>
+
+                <form on-submit="submit">
+                    <input value="{{ newMessage }}" placeholder="Message.." autofocus>
+                </form>
+
+            </div>
+
+
+        </script>
+
+        <script id="user" type="text/ractive">
+            <li>{{ name }}</li>
+        </script>
+
+        <script id="message" type="text/ractive">
+            <li class="{{#currentUser}}me{{/currentUer}}">
+                <h5>{{ from }}</h5>
+                <p>{{ text }}</p>
+            </li>
+        </script>
+
+        <script src="/app.js"></script>
+
+    </body>
 </html>

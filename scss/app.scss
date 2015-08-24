@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+*, *:after, *:before {
+    box-sizing: border-box;
+}
+
+textarea, input, button {
+    outline: none;
+}
+
+html, input, textarea, button {
+    font: 100%/1.5em sans-serif;
+}
+
+a {
+    color: #cc333f;
+}
+
+html {
+    background: url('/img/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+@import 'loading';
+@import 'login';
+@import 'conversation';

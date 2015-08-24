@@ -1,107 +1,48 @@
-// process.env.TZ = 'Etc/GMT';
+var fs = require('fs'),
+    config = require('./config');
 
-(function () {
+var server = require('https').createServer({
+    key: fs.readFileSync(config.ssl_key),
+    cert: fs.readFileSync(config.ssl_cert)
+}).listen(config.port);
 
-	"use strict";
+var io = require('socket.io')(server);
 
-	var config = require('./config');
+var connections = [],
+    users = [];
 
-	var fs = require('fs'),
-		uuid = require('node-uuid'),
-		https = require('https'),
-		webSocket = require('ws');
+var pushData = function (type, data) {
+    for (var i in connections) {
+        connections[i].emit(type, JSON.stringify(data));
+    }
+};
 
-	var httpsServer = https.createServer({
-		key: fs.readFileSync(config.ssl_key),
-		cert: fs.readFileSync(config.ssl_cert)
-	}).listen(config.port);
+io.on('connection', function (socket) {
 
-	var webSocketServer = new webSocket.Server({
-		server: httpsServer
-	});
+    var connectionId = connections.push(socket) - 1,
+        userId;
 
-	var userList = function(clients) {
-		var userList = {};
-		for (var i in clients) {
-			if (typeof clients[i].user === 'undefined') continue;
-			userList[i] = {
-				reference : clients[i].user.reference,
-				name : clients[i].user.name
-			};
-		}
-		return userList;
-	}
+    socket.on('login', function (data) {
+        userId = users.push({
+            name: data.name
+        }) - 1;
+        connections[connectionId].userName = data.name;
+        pushData('users', users);
+    });
 
-	var pushData = function(clients, data) {
-		for(var i in clients){
-			clients[i].connection.send(JSON.stringify(data));
-		}
-	}
+    socket.on('message', function (message) {
+        pushData('message', {
+            from: connections[connectionId].userName,
+            text: message.text
+        });
+    });
 
-	var pushUsers = function(clients) {
-		pushData(clients, {
-			type : 'users',
-			users : userList(clients),
-			time : new Date().toUTCString()
-		});
-	}
+    socket.on('disconnect', function () {
+        delete connections[connectionId];
+        if (typeof userId === 'number') {
+            users.splice(userId, 1);
+            pushData('users', users);
+        }
+    });
 
-
-	var clients = {},
-		connectionCount = 1;
-
-	webSocketServer.on('connection', function (connection) {
-
-		var clientId = connectionCount++;
-
-		console.log(new Date()+' User ('+clientId+') connected to server');
-
-		clients[clientId] = {
-			connection: connection
-		};
-
-		connection.on('message', function (data) {
-
-			// Decode data
-			data = JSON.parse(data);
-
-			console.log(new Date()+' Message received from user ('+clientId+')');
-
-			// Actions
-			switch (data.action) {
-
-				case 'login':
-					clients[clientId].user = {
-						reference : uuid.v4(),
-						name : data.name
-					};
-					pushUsers(clients);
-					break;
-
-				case 'message':
-					pushData(clients, {
-						type : 'message',
-						user : clients[clientId].user,
-						sent : new Date().toUTCString(),
-						text : data.message
-					});
-					break;
-
-			}
-
-		});
-
-		connection.on('close', function () {
-
-			console.log(new Date()+' User ('+clientId+') disconnected from server');
-
-			delete clients[clientId];
-
-			pushUsers(clients);
-
-		});
-
-	});
-
-
-}());
+});
